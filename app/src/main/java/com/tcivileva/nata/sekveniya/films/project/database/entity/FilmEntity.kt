@@ -9,7 +9,7 @@ data class FilmEntity(
   val filmId:Int = 0,
   val localizedName:String = "",
   val name:String = "",
-  val year:Short = 0,
+  val year:Int = 0,
   val rating:Double = 0.0,
   val image:String = "",
   val description:String = ""

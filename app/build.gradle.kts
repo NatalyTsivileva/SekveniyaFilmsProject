@@ -35,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -63,4 +67,13 @@ dependencies {
     //Room
     implementation("androidx.room:room-runtime:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
+
+    // Koin для Android
+    implementation("io.insert-koin:koin-android:4.0.2")
+
+    //для viewLifecycleOwner
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+
+    //RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
 }
