@@ -1,19 +1,16 @@
 package com.tcivileva.nata.sekveniya.films.project.data
 
-data class FilmHeader(
-    val text:String
-):IAdapterData {
+class FilmSkeleton:IAdapterData {
+
     override fun getAdapterItemType(): AdapterDataType {
-        return AdapterDataType.HEADER
+        return AdapterDataType.SKELETON
     }
 
     override fun areItemsTheSame(newItem: IAdapterData): Boolean {
-        if(newItem !is FilmHeader) return false
-        return newItem.text == this.text
+       return false
     }
 
     override fun areContentsTheSame(newItem: IAdapterData): Boolean {
-        if(newItem !is FilmHeader) return false
-        return newItem==this
+        return false
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tcivileva.nata.sekveniya.films.project.collectFlow
 import com.tcivileva.nata.sekveniya.films.project.databinding.FragmentFilmListBinding
@@ -18,7 +19,8 @@ class FilmListFragment : Fragment() {
 
     private val viewModel: FilmListViewModel by viewModel()
 
-    private var adapter: FilmListAdapter? = null
+    private var filmAdapter: FilmListAdapter? = null
+    private var genreAdapter: FilmGenreAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +49,7 @@ class FilmListFragment : Fragment() {
 
                 is LoadingState.Success -> {
                     toggleProgressIndicator(false)
-                    adapter?.submitList(state.data)
+                    filmAdapter?.submitList(state.data)
                 }
 
                 is LoadingState.ConnectionError -> {
@@ -59,14 +61,25 @@ class FilmListFragment : Fragment() {
                 }
             }
         }
+
+        collectFlow(viewModel.genresListFlow){ genres->
+            genreAdapter?.submitList(genres)
+        }
+
         viewModel.getFilmsList()
     }
 
     private fun setupRecycler(){
         _binding?.filmsRecycler?.let { recycler->
             recycler.layoutManager = GridLayoutManager(context,2)
-            adapter = FilmListAdapter()
-            recycler.adapter = adapter
+
+            filmAdapter = FilmListAdapter()
+            genreAdapter = FilmGenreAdapter()
+
+            recycler.adapter = ConcatAdapter(
+                filmAdapter,
+                genreAdapter
+            )
         }
     }
 

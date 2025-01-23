@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeRounded4px" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="shapeCornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ShapableImageView">
+        <item name="shapeAppearance">@style/ShapeRounded4px</item>
+        <item name="strokeColor">@null</item>
+    </style>
+
+    <style name="FilmTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="font">@font/roboto</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>

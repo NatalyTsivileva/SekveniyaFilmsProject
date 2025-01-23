@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.tcivileva.nata.sekveniya.films.project.R
 import com.tcivileva.nata.sekveniya.films.project.data.FilmData
 import com.tcivileva.nata.sekveniya.films.project.databinding.ItemFilmBinding
 
@@ -17,7 +18,10 @@ class FilmListAdapter: ListAdapter<FilmData, FilmListAdapter.FilmsViewHolder>(fi
 
             Glide.with(context)
                 .load(data.image)
+                .placeholder(R.drawable.img_placeholder)
                 .into(binding.filmImage);
+
+            binding.filmName.text = data.nameRu
         }
     }
 
