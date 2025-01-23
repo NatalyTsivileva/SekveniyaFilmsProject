@@ -76,4 +76,10 @@ dependencies {
 
     //RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.4.0")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //Timber
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }

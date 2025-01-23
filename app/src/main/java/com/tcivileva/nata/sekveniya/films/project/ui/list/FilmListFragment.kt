@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
 import com.tcivileva.nata.sekveniya.films.project.collectFlow
 import com.tcivileva.nata.sekveniya.films.project.databinding.FragmentFilmListBinding
 import com.tcivileva.nata.sekveniya.films.project.ui.LoadingState
@@ -16,6 +17,8 @@ class FilmListFragment : Fragment() {
     private var _binding: FragmentFilmListBinding? = null
 
     private val viewModel: FilmListViewModel by viewModel()
+
+    private var adapter: FilmListAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +37,8 @@ class FilmListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        setupRecycler()
+
         collectFlow(viewModel.filmsListFlow){ state->
             when(state){
                 is LoadingState.Loading -> {
@@ -42,6 +47,7 @@ class FilmListFragment : Fragment() {
 
                 is LoadingState.Success -> {
                     toggleProgressIndicator(false)
+                    adapter?.submitList(state.data)
                 }
 
                 is LoadingState.ConnectionError -> {
@@ -53,12 +59,18 @@ class FilmListFragment : Fragment() {
                 }
             }
         }
-
         viewModel.getFilmsList()
     }
 
+    private fun setupRecycler(){
+        _binding?.filmsRecycler?.let { recycler->
+            recycler.layoutManager = GridLayoutManager(context,2)
+            adapter = FilmListAdapter()
+            recycler.adapter = adapter
+        }
+    }
 
-    fun toggleProgressIndicator(isOn:Boolean){
+    private fun toggleProgressIndicator(isOn:Boolean){
         _binding?.filmsProgressbar?.isVisible = isOn
     }
 }

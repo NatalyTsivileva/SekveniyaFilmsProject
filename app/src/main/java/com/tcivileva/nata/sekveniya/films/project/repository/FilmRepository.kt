@@ -18,7 +18,7 @@ class FilmRepository(
                 nameRu = "Тестовый фильм",
                 year=2025,
                 rating = 10.0,
-                image="",
+                image="https://st.kp.yandex.net/images/film_iphone/iphone360_326.jpg",
                 description = "Фильм для тестирования СПИСКА без обращения к API",
                 genres = listOf("мелодрамма","комедия","трагедия")
             )
@@ -33,7 +33,7 @@ class FilmRepository(
             nameRu = "Тестовый фильм",
             year=2025,
             rating = 10.0,
-            image="",
+            image="https://st.kp.yandex.net/images/film_iphone/iphone360_326.jpg",
             description = "Фильм для тестирования ФИЛЬМА ПО ID без обращения к API",
             genres = listOf("сюрреализм","артхаус","трагедия")
         )
