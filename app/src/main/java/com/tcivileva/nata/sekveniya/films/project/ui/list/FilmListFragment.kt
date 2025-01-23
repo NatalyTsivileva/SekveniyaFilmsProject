@@ -5,22 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.tcivileva.nata.sekveniya.films.project.R
+import androidx.core.view.isVisible
 import com.tcivileva.nata.sekveniya.films.project.collectFlow
 import com.tcivileva.nata.sekveniya.films.project.databinding.FragmentFilmListBinding
 import com.tcivileva.nata.sekveniya.films.project.ui.LoadingState
-import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmListFragment : Fragment() {
 
     private var _binding: FragmentFilmListBinding? = null
 
-    private val viewModel: FilmListViewModel by viewModels()
+    private val viewModel: FilmListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,11 +36,29 @@ class FilmListFragment : Fragment() {
 
         collectFlow(viewModel.filmsListFlow){ state->
             when(state){
-                is LoadingState.Success -> TODO()
-                is LoadingState.ConnectionError -> TODO()
-                is LoadingState.Error -> TODO()
-                is LoadingState.Loading -> TODO()
+                is LoadingState.Loading -> {
+                    toggleProgressIndicator(true)
+                }
+
+                is LoadingState.Success -> {
+                    toggleProgressIndicator(false)
+                }
+
+                is LoadingState.ConnectionError -> {
+                    toggleProgressIndicator(false)
+                }
+
+                is LoadingState.Error -> {
+                    toggleProgressIndicator(false)
+                }
             }
         }
+
+        viewModel.getFilmsList()
+    }
+
+
+    fun toggleProgressIndicator(isOn:Boolean){
+        _binding?.filmsProgressbar?.isVisible = isOn
     }
 }
