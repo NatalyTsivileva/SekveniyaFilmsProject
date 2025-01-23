@@ -2,18 +2,16 @@ package com.tcivileva.nata.sekveniya.films.project.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tcivileva.nata.sekveniya.films.project.data.FilmData
-import com.tcivileva.nata.sekveniya.films.project.data.FilmGenre
-import com.tcivileva.nata.sekveniya.films.project.data.FilmHeader
-import com.tcivileva.nata.sekveniya.films.project.data.FilmSkeleton
-import com.tcivileva.nata.sekveniya.films.project.data.IAdapterData
+import com.tcivileva.nata.sekveniya.films.project.R
+import com.tcivileva.nata.sekveniya.films.project.data.Film
+import com.tcivileva.nata.sekveniya.films.project.data.FilmsWithHeader
+import com.tcivileva.nata.sekveniya.films.project.data.GenreWithHeader
 import com.tcivileva.nata.sekveniya.films.project.repository.IFilmRepository
 import com.tcivileva.nata.sekveniya.films.project.ui.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 
@@ -21,44 +19,35 @@ class FilmListViewModel(
     private val repository: IFilmRepository
 ):ViewModel() {
 
-    private val _filmsListFlow: MutableStateFlow<LoadingState<List<FilmData>>> = MutableStateFlow(LoadingState.Loading())
+    private val _filmsListFlow: MutableStateFlow<LoadingState<List<FilmsWithHeader>>> = MutableStateFlow(LoadingState.Loading())
     val filmsListFlow = _filmsListFlow.asStateFlow()
 
-    private val _genresListFlow:MutableStateFlow<List<IAdapterData>> = MutableStateFlow(listOf(FilmSkeleton()))
+    private val _genresListFlow:MutableStateFlow<List<GenreWithHeader>> = MutableStateFlow(listOf())
     val genresListFlow = _genresListFlow.asStateFlow()
 
     fun getFilmsList(){
        viewModelScope.launch(Dispatchers.IO) {
            try {
              val films = repository.getFilmsList()
-             val state = LoadingState.Success(films)
+             val filmsWithHeader = FilmsWithHeader(R.string.header_films, films)
+             val state = LoadingState.Success(listOf(filmsWithHeader))
              _filmsListFlow.tryEmit(state)
-             _genresListFlow.tryEmit(getAllGenres())
+
+           val genres = repository.getGenresList()
+           val genreWithHeader = GenreWithHeader(headerRes = R.string.header_genres, genres)
+            _genresListFlow.tryEmit(listOf(genreWithHeader))
+
            }catch (s: SocketTimeoutException){
-               val state = LoadingState.ConnectionError<List<FilmData>>(s.message?:"")
+               val state = LoadingState.ConnectionError<List<FilmsWithHeader>>(s.message?:"")
                _filmsListFlow.tryEmit(state)
            }catch (h: HttpException){
                val msg = "${h.code()} : ${h.message()}"
-               val state = LoadingState.ConnectionError<List<FilmData>>(msg)
+               val state = LoadingState.ConnectionError<List<FilmsWithHeader>>(msg)
                _filmsListFlow.tryEmit(state)
            }catch (t:Throwable){
-              val state = LoadingState.Error<List<FilmData>>(t.message?:"")
+              val state = LoadingState.Error<List<FilmsWithHeader>>(t.message?:"")
                _filmsListFlow.tryEmit(state)
            }
        }
-    }
-
-    suspend fun getAllGenres():List<IAdapterData>{
-        //TODO заменить на получение текста из ресов!
-        val genres:MutableList<IAdapterData> = mutableListOf(FilmHeader("Жанры"))
-
-        repository.getGenresList().map {
-            val genre = FilmGenre(it, false)
-            genres.add(genre)
-        }
-        //TODO заменить на получение текста из ресов!
-        genres.add(FilmHeader("Фильмы"))
-
-        return genres
     }
 }

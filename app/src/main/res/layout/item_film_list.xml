@@ -6,18 +6,27 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/genreText"
+        android:id="@+id/headerText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/FilmTextAppearance"
-        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text ="Приключения"/>
+        tools:text ="Фильмы"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/genresRecycler"
+        tools:listitem="@layout/item_film"
+        tools:itemCount="10"
+        app:layout_constraintStart_toStartOf="@id/headerText"
+        app:layout_constraintTop_toBottomOf="@id/headerText"
+        app:layout_constraintEnd_toEndOf="@id/headerText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

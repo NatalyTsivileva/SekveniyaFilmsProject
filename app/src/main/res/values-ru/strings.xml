@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SekveniyaFilmsProject</string>
+    <string name="header_genres">Жанры</string>
+    <string name="header_films">Фильмы</string>
+</resources>

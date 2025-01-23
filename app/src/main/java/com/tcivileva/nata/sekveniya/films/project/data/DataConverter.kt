@@ -31,9 +31,9 @@ object DataConverter {
         return result
     }
 
-    fun fromResponseToData(response:FilmsResponse): List<FilmData> {
+    fun fromResponseToData(response:FilmsResponse): List<Film> {
        return response.films.map {
-            FilmData(
+            Film(
                 id = it.id,
                 name = it.name,
                 nameRu = it.localizedName,

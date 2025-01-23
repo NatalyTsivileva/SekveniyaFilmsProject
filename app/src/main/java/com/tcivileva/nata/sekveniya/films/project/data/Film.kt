@@ -1,6 +1,6 @@
 package com.tcivileva.nata.sekveniya.films.project.data
 
-data class FilmData(
+data class Film(
     val id:Int = 0,
     val name: String = "",
     val nameRu:String = "",

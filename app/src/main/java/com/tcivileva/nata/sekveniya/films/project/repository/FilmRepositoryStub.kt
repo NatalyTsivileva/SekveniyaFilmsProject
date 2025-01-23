@@ -1,6 +1,7 @@
 package com.tcivileva.nata.sekveniya.films.project.repository
 
-import com.tcivileva.nata.sekveniya.films.project.data.FilmData
+import com.tcivileva.nata.sekveniya.films.project.data.Film
+import com.tcivileva.nata.sekveniya.films.project.data.Genre
 import com.tcivileva.nata.sekveniya.films.project.database.FilmDatabase
 import com.tcivileva.nata.sekveniya.films.project.network.FilmsAPI
 
@@ -9,9 +10,9 @@ class FilmRepositoryStub(
     database: FilmDatabase
 ):IFilmRepository {
 
-    override suspend fun getFilmsList(): List<FilmData> {
+    override suspend fun getFilmsList(): List<Film> {
         return listOf(
-            FilmData(
+            Film(
                 id=1,
                 name = "Test film",
                 nameRu = "Тестовый фильм",
@@ -21,7 +22,7 @@ class FilmRepositoryStub(
                 description = "Фильм для тестирования СПИСКА без обращения к API",
                 genres = listOf("мелодрамма","комедия","трагедия")
             ),
-            FilmData(
+            Film(
                 id=2,
                 name = "Test film",
                 nameRu = "Тестовый фильм",
@@ -34,16 +35,16 @@ class FilmRepositoryStub(
         )
     }
 
-    override suspend fun getGenresList(): List<String> {
+    override suspend fun getGenresList(): List<Genre> {
         return listOf(
-            "Драма",
-            "Приключения",
-            "Боевик"
+            Genre("Драма",false),
+            Genre("Приключения",false),
+            Genre("Боевик", isSelected = false)
         )
     }
 
-    override suspend fun getFilmData(id: Int): FilmData {
-        return FilmData(
+    override suspend fun getFilmData(id: Int): Film {
+        return Film(
             id=2,
             name = "Test film",
             nameRu = "Тестовый фильм",

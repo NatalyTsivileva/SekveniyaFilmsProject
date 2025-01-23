@@ -1,4 +1,4 @@
-package com.tcivileva.nata.sekveniya.films.project.ui.list
+package com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.inner
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tcivileva.nata.sekveniya.films.project.R
-import com.tcivileva.nata.sekveniya.films.project.data.FilmData
+import com.tcivileva.nata.sekveniya.films.project.data.Film
 import com.tcivileva.nata.sekveniya.films.project.databinding.ItemFilmBinding
 
-class FilmListAdapter: ListAdapter<FilmData, FilmListAdapter.FilmsViewHolder>(filmsDiffUtil) {
+class FilmItemAdapter: ListAdapter<Film, FilmItemAdapter.FilmsViewHolder>(filmsDiffUtil) {
 
     class FilmsViewHolder(private val binding:ItemFilmBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(data:FilmData){
+        fun bind(data:Film){
             val context = binding.root.context
 
             Glide.with(context)
@@ -37,13 +37,13 @@ class FilmListAdapter: ListAdapter<FilmData, FilmListAdapter.FilmsViewHolder>(fi
 
 
     companion object{
-        val filmsDiffUtil = object : DiffUtil.ItemCallback<FilmData>() {
+        val filmsDiffUtil = object : DiffUtil.ItemCallback<Film>() {
 
-            override fun areItemsTheSame(oldItem: FilmData, newItem: FilmData): Boolean {
+            override fun areItemsTheSame(oldItem: Film, newItem: Film): Boolean {
                 return oldItem.id==newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: FilmData, newItem: FilmData): Boolean {
+            override fun areContentsTheSame(oldItem: Film, newItem: Film): Boolean {
                 return oldItem==newItem
             }
 

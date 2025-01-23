@@ -1,13 +1,14 @@
 package com.tcivileva.nata.sekveniya.films.project.repository
 
-import com.tcivileva.nata.sekveniya.films.project.data.FilmData
+import com.tcivileva.nata.sekveniya.films.project.data.Film
+import com.tcivileva.nata.sekveniya.films.project.data.Genre
 
 interface IFilmRepository {
 
-    suspend fun getFilmsList():List<FilmData>
+    suspend fun getFilmsList():List<Film>
 
-    suspend fun getGenresList():List<String>
+    suspend fun getGenresList():List<Genre>
 
-    suspend fun getFilmData(id:Int): FilmData
+    suspend fun getFilmData(id:Int): Film
 
 }

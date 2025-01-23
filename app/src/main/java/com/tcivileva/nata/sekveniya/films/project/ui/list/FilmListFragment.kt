@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tcivileva.nata.sekveniya.films.project.collectFlow
 import com.tcivileva.nata.sekveniya.films.project.databinding.FragmentFilmListBinding
 import com.tcivileva.nata.sekveniya.films.project.ui.LoadingState
+import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.inner.FilmItemAdapter
+import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.outer.FilmListAdapter
+import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.outer.GenreListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmListFragment : Fragment() {
@@ -20,7 +23,7 @@ class FilmListFragment : Fragment() {
     private val viewModel: FilmListViewModel by viewModel()
 
     private var filmAdapter: FilmListAdapter? = null
-    private var genreAdapter: FilmGenreAdapter? = null
+    private var genreAdapter: GenreListAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +66,7 @@ class FilmListFragment : Fragment() {
         }
 
         collectFlow(viewModel.genresListFlow){ genres->
-            genreAdapter?.submitList(genres)
+           genreAdapter?.submitList(genres)
         }
 
         viewModel.getFilmsList()
@@ -71,14 +74,14 @@ class FilmListFragment : Fragment() {
 
     private fun setupRecycler(){
         _binding?.filmsRecycler?.let { recycler->
-            recycler.layoutManager = GridLayoutManager(context,2)
+            recycler.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 
             filmAdapter = FilmListAdapter()
-            genreAdapter = FilmGenreAdapter()
+            genreAdapter = GenreListAdapter()
 
             recycler.adapter = ConcatAdapter(
-                filmAdapter,
-                genreAdapter
+                genreAdapter,
+                filmAdapter
             )
         }
     }

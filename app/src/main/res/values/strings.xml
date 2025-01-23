@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SekveniyaFilmsProject</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="header_genres">Genres</string>
+    <string name="header_films">Films</string>
 </resources>
