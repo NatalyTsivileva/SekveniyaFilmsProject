@@ -14,8 +14,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1.6"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/d1"
+        android:layout_marginBottom="@dimen/d1"
         android:layout_width="0dp"
         android:layout_height="0dp">
 
@@ -28,16 +28,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/filmName"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/d1"
+            android:layout_width="0dp"
             android:layout_height="0dp" />
 
         <TextView
             android:id="@+id/filmName"
             android:lines="2"
-            android:textAppearance="@style/FilmTextAppearance"
-            android:textStyle="bold"
-            android:textSize="16sp"
+            style="@style/Roboto.Header.16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

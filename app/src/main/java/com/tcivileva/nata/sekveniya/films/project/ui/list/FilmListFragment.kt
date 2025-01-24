@@ -78,12 +78,12 @@ class FilmListFragment : Fragment() {
 
                 is LoadingState.ConnectionError -> {
                     toggleProgressIndicator(false)
-                    showErrorSnackbar(state.message)
+                    showErrorSnackbar()
                 }
 
                 is LoadingState.Error -> {
                     toggleProgressIndicator(false)
-                    showErrorSnackbar(state.message)
+                    showErrorSnackbar()
                 }
             }
         }
@@ -113,8 +113,9 @@ class FilmListFragment : Fragment() {
         _binding?.filmsProgressbar?.isVisible = isOn
     }
 
-    private fun showErrorSnackbar(text:String){
+    private fun showErrorSnackbar(){
         _binding?.root?.let {
+            val text = it.context.getText(R.string.connection_error)
             val snack = Snackbar.make(it,text,Snackbar.LENGTH_SHORT)
             val btnText = it.context.getText(R.string.btn_reload)
             snack.setAction(btnText){

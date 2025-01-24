@@ -3,4 +3,7 @@
     <string name="header_genres">Жанры</string>
     <string name="header_films">Фильмы</string>
     <string name="btn_reload">Повторить</string>
+    <string name="connection_error">Ошибка подключения сети</string>
+    <string name="brand_kinopoisk">КиноПоиск</string>
+
 </resources>

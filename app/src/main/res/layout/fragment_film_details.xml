@@ -3,14 +3,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.details.FilmDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/testText"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="35sp"
-        android:text="FRAGMENT FILM DETAILS" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/filmImage"
+                style="@style/ShapableImageView"
+                android:scaleType="centerCrop"
+                android:layout_width="130dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/d3"
+                tools:src="@tools:sample/avatars"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            </com.google.android.material.imageview.ShapeableImageView>
+
+            <TextView
+                android:id="@+id/nameRu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Roboto.Header.26"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/filmImage"
+                android:layout_marginTop="@dimen/d3"
+                android:layout_marginStart="@dimen/d2"
+                android:layout_marginEnd="@dimen/d2"
+                tools:text="Между нами горы" />
+
+            <TextView
+                android:id="@+id/genreAndYear"
+                style="@style/Roboto.Note.16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d1"
+                tools:text="драма, 2017 год"
+                app:layout_constraintTop_toBottomOf="@id/nameRu"
+                app:layout_constraintStart_toStartOf="@id/nameRu"/>
+
+            <TextView
+                android:id="@+id/rating"
+                style="@style/Roboto.Brand.24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:text="6.7"
+                app:layout_constraintStart_toStartOf="@id/nameRu"
+                app:layout_constraintTop_toBottomOf="@id/genreAndYear"/>
+
+            <TextView
+                android:id="@+id/kinopoisText"
+                style="@style/Roboto.Brand.16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/rating"
+                app:layout_constraintTop_toTopOf="@id/rating"
+                app:layout_constraintBottom_toBottomOf="@id/rating"
+                android:layout_marginStart="@dimen/d1"
+                tools:text="КиноПоиск"/>
+
+            <TextView
+                android:id="@+id/filmDescription"
+                style="@style/Roboto.14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/nameRu"
+                app:layout_constraintEnd_toEndOf="@id/nameRu"
+                app:layout_constraintTop_toBottomOf="@id/rating"
+                android:layout_marginTop="@dimen/d1_75"
+                android:paddingBottom="@dimen/d2"
+                android:lineHeight="20dp"
+                tools:text="Бен и Алекс, уцелевшие после авиакатастрофы, должны найти общий язык, чтобы выжить в экстремальных условиях далеких заснеженных гор. Когда они понимают, что на помощь к ним никто не придет, они вынуждены отправиться в опасный путь длиной в сотни километров. В заснеженных американских горах им придётся проходить через все ужасы выживания: серьёзные травмы, невозможность связаться с внешним миром, нападение диких животных Бен и Алекс, уцелевшие после авиакатастрофы, должны найти общий язык, чтобы выжить в экстремальных условиях далеких заснеженных гор. Когда они понимают, что на помощь к ним никто не придет, они вынуждены отправиться в опасный путь длиной в сотни километров. В заснеженных американских горах им придётся проходить через все ужасы выживания: серьёзные травмы, невозможность связаться с внешним миром, нападение диких животных Бен и Алекс, уцелевшие после авиакатастрофы, должны найти общий язык, чтобы выжить в экстремальных условиях далеких заснеженных гор. Когда они понимают, что на помощь к ним никто не придет, они вынуждены отправиться в опасный путь длиной в сотни километров. В заснеженных американских горах им придётся проходить через все ужасы выживания: серьёзные травмы, невозможность связаться с внешним миром, нападение диких животных"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+   </FrameLayout>

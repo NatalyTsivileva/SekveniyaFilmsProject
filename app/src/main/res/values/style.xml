@@ -14,5 +14,58 @@
         <item name="font">@font/roboto</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    
+    <style name="Roboto">
+        <item name="android:textAppearance">@style/FilmTextAppearance</item>
+    </style>
+
+
+    <style name="Roboto.14">
+        <item name="android:textSize">@dimen/s1_75</item>
+    </style>
+
+    <style name="Roboto.16">
+        <item name="android:textSize">@dimen/s2</item>
+    </style>
+
+
+    <style name="Roboto.Header">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Roboto.Header.16">
+        <item name="android:textSize">@dimen/s2</item>
+    </style>
+
+    <style name="Roboto.Header.20">
+        <item name="android:textSize">@dimen/s2_5</item>
+    </style>
+
+    <style name="Roboto.Header.26">
+        <item name="android:textSize">@dimen/s3_25</item>
+    </style>
+
+
+    <style name="Roboto.Note">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="Roboto.Note.16">
+        <item name="android:textSize">@dimen/s2</item>
+    </style>
+
+
+    <style name="Roboto.Brand">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="Roboto.Brand.16">
+        <item name="android:textSize">@dimen/s2</item>
+    </style>
+
+    <style name="Roboto.Brand.24">
+        <item name="android:textSize">@dimen/s3</item>
+    </style>
+
 
 </resources>
