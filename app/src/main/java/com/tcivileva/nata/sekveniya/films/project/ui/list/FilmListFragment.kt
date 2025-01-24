@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -20,7 +21,6 @@ import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.OnClickListene
 import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.outer.FilmListAdapter
 import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.outer.GenreListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class FilmListFragment : Fragment() {
 
@@ -33,14 +33,15 @@ class FilmListFragment : Fragment() {
 
     private val filmClickListener = object : OnClickListener<Film>{
         override fun onClick(item: Film) {
-            //TODO("Not yet implemented")
-            Toast.makeText(context,"Нажали на фильм ${item.nameRu}",Toast.LENGTH_SHORT).show()
+            val action = FilmListFragmentDirections
+                .actionFilmListFragmentToFilmDetailsFragment(filmID = item.id)
+
+            findNavController().navigate(action)
         }
     }
 
   private val genreClickListener = object : OnClickListener<Genre> {
       override fun onClick(item: Genre) {
-          Timber.d("Нажали на жанр ${item.genre}")
          viewModel.getFilms(item.genre)
       }
   }

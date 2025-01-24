@@ -12,8 +12,9 @@
         android:id="@+id/container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:name="com.tcivileva.nata.sekveniya.films.project.ui.list.FilmListFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:navGraph="@navigation/nav_graph"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

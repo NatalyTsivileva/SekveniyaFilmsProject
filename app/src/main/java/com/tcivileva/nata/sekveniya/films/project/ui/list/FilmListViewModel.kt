@@ -31,10 +31,8 @@ class FilmListViewModel(
     fun loadData(){
         if(selectedGenre.isEmpty()){
             getFilms()
-            Timber.d("loadData() сработал getFilms()")
         }else{
             getFilms(selectedGenre)
-            Timber.d("loadData() сработал getFilms(genre)")
         }
     }
 
@@ -42,14 +40,12 @@ class FilmListViewModel(
        viewModelScope.launch(Dispatchers.IO) {
            try {
              _filmsListFlow.tryEmit(LoadingState.Loading())
-             Timber.d("getFilms() начал работу")
 
              val films = repository.getFilmsList()
              val filmsWithHeader = FilmsWithHeader(R.string.header_films, films)
              val state = LoadingState.Success(listOf(filmsWithHeader))
              _filmsListFlow.tryEmit(state)
 
-             Timber.d("getFilms() отработал, пришло films count = ${films.count()}")
 
            val genres = repository.getGenresList()
            val genreWithHeader = GenreWithHeader(headerRes = R.string.header_genres, genres)
@@ -58,13 +54,16 @@ class FilmListViewModel(
            }catch (s: SocketTimeoutException){
                val state = LoadingState.ConnectionError<List<FilmsWithHeader>>(s.message?:"")
                _filmsListFlow.tryEmit(state)
+               Timber.d("getFilms() SocketTimeoutException:${s.message}")
            }catch (h: HttpException){
                val msg = "${h.code()} : ${h.message()}"
                val state = LoadingState.ConnectionError<List<FilmsWithHeader>>(msg)
                _filmsListFlow.tryEmit(state)
+               Timber.d("getFilms() HttpException:${msg}")
            }catch (t:Throwable){
               val state = LoadingState.Error<List<FilmsWithHeader>>(t.message?:"")
                _filmsListFlow.tryEmit(state)
+               Timber.d("getFilms() Error!:${t.message}")
            }
        }
     }
@@ -101,6 +100,7 @@ class FilmListViewModel(
             }catch (t:Throwable){
                 val state = LoadingState.Error<List<FilmsWithHeader>>(t.message?:"")
                 _filmsListFlow.tryEmit(state)
+                Timber.d("getFilms(genre:String) Error!:${t.message}")
             }
         }
     }

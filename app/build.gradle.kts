@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     kotlin("plugin.serialization") version "2.1.0"
     id("com.google.devtools.ksp")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -82,4 +83,10 @@ dependencies {
 
     //Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    //Navigation
+    implementation ("androidx.navigation:navigation-fragment:2.8.5")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.8.5")
+    implementation ("androidx.navigation:navigation-ui:2.8.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.8.5")
 }
