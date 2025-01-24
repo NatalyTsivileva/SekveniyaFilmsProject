@@ -5,16 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.tcivileva.nata.sekveniya.films.project.R
 import com.tcivileva.nata.sekveniya.films.project.collectFlow
+import com.tcivileva.nata.sekveniya.films.project.data.Film
+import com.tcivileva.nata.sekveniya.films.project.data.Genre
 import com.tcivileva.nata.sekveniya.films.project.databinding.FragmentFilmListBinding
 import com.tcivileva.nata.sekveniya.films.project.ui.LoadingState
-import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.inner.FilmItemAdapter
+import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.OnClickListener
 import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.outer.FilmListAdapter
 import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.outer.GenreListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class FilmListFragment : Fragment() {
 
@@ -24,6 +30,20 @@ class FilmListFragment : Fragment() {
 
     private var filmAdapter: FilmListAdapter? = null
     private var genreAdapter: GenreListAdapter? = null
+
+    private val filmClickListener = object : OnClickListener<Film>{
+        override fun onClick(item: Film) {
+            //TODO("Not yet implemented")
+            Toast.makeText(context,"Нажали на фильм ${item.nameRu}",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+  private val genreClickListener = object : OnClickListener<Genre> {
+      override fun onClick(item: Genre) {
+          Timber.d("Нажали на жанр ${item.genre}")
+         viewModel.getFilms(item.genre)
+      }
+  }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,10 +77,12 @@ class FilmListFragment : Fragment() {
 
                 is LoadingState.ConnectionError -> {
                     toggleProgressIndicator(false)
+                    showErrorSnackbar(state.message)
                 }
 
                 is LoadingState.Error -> {
                     toggleProgressIndicator(false)
+                    showErrorSnackbar(state.message)
                 }
             }
         }
@@ -69,15 +91,15 @@ class FilmListFragment : Fragment() {
            genreAdapter?.submitList(genres)
         }
 
-        viewModel.getFilmsList()
+        viewModel.loadData()
     }
 
     private fun setupRecycler(){
         _binding?.filmsRecycler?.let { recycler->
             recycler.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 
-            filmAdapter = FilmListAdapter()
-            genreAdapter = GenreListAdapter()
+            filmAdapter = FilmListAdapter(filmClickListener)
+            genreAdapter = GenreListAdapter(genreClickListener)
 
             recycler.adapter = ConcatAdapter(
                 genreAdapter,
@@ -88,5 +110,16 @@ class FilmListFragment : Fragment() {
 
     private fun toggleProgressIndicator(isOn:Boolean){
         _binding?.filmsProgressbar?.isVisible = isOn
+    }
+
+    private fun showErrorSnackbar(text:String){
+        _binding?.root?.let {
+            val snack = Snackbar.make(it,text,Snackbar.LENGTH_SHORT)
+            val btnText = it.context.getText(R.string.btn_reload)
+            snack.setAction(btnText){
+                viewModel.loadData()
+            }
+            snack.show()
+        }
     }
 }

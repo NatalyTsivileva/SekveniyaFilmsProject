@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.tcivileva.nata.sekveniya.films.project.database.FilmDatabase
 import com.tcivileva.nata.sekveniya.films.project.network.FilmsAPI
 import com.tcivileva.nata.sekveniya.films.project.network.NetworkClient
+import com.tcivileva.nata.sekveniya.films.project.repository.FilmRepository
 import com.tcivileva.nata.sekveniya.films.project.repository.FilmRepositoryStub
 import com.tcivileva.nata.sekveniya.films.project.repository.IFilmRepository
 import com.tcivileva.nata.sekveniya.films.project.ui.list.FilmListViewModel
@@ -15,7 +16,7 @@ val appModule = module {
 
     single<FilmDatabase> { Room.databaseBuilder(get(), FilmDatabase::class.java, "film_database").build() }
 
-    single<IFilmRepository> { FilmRepositoryStub( get(), get()) }
+    single<IFilmRepository> { FilmRepository( get(), get()) }
 
     viewModel { FilmListViewModel(get()) }
 }

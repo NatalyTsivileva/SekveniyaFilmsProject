@@ -8,23 +8,32 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.tcivileva.nata.sekveniya.films.project.R
 import com.tcivileva.nata.sekveniya.films.project.data.Genre
 import com.tcivileva.nata.sekveniya.films.project.databinding.ItemGenreBinding
+import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.OnClickListener
 
-class GenreItemAdapter: ListAdapter<Genre, GenreItemAdapter.GenreItemViewHolder>(genreDiffUtil) {
+class GenreItemAdapter(private val listener: OnClickListener<Genre>): ListAdapter<Genre, GenreItemAdapter.GenreItemViewHolder>(genreDiffUtil) {
 
-    class GenreItemViewHolder(private val binding: ItemGenreBinding):ViewHolder(binding.root){
+    class GenreItemViewHolder(
+        private val binding: ItemGenreBinding,
+        private val listener: OnClickListener<Genre>
+    ):ViewHolder(binding.root){
+
         fun bind(data:Genre) {
             val backgroundColorRes = if (data.isSelected) R.color.orange else android.R.color.transparent
             val backgroundColor = binding.root.resources.getColor(backgroundColorRes,null)
 
             binding.genreText.text = data.genre
             binding.genreText.setBackgroundColor(backgroundColor)
+
+            binding.root.setOnClickListener {
+                listener.onClick(data)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemGenreBinding.inflate(inflater,parent,false)
-        return GenreItemViewHolder(binding)
+        return GenreItemViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: GenreItemViewHolder, position: Int) {

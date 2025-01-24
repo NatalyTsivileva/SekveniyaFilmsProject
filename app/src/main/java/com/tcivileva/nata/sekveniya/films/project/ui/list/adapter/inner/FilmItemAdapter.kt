@@ -9,11 +9,13 @@ import com.bumptech.glide.Glide
 import com.tcivileva.nata.sekveniya.films.project.R
 import com.tcivileva.nata.sekveniya.films.project.data.Film
 import com.tcivileva.nata.sekveniya.films.project.databinding.ItemFilmBinding
+import com.tcivileva.nata.sekveniya.films.project.ui.list.adapter.OnClickListener
 
-class FilmItemAdapter: ListAdapter<Film, FilmItemAdapter.FilmsViewHolder>(filmsDiffUtil) {
+class FilmItemAdapter(private val listener: OnClickListener<Film>):
+    ListAdapter<Film, FilmItemAdapter.FilmsViewHolder>(filmsDiffUtil) {
 
     class FilmsViewHolder(private val binding:ItemFilmBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(data:Film){
+        fun bind(data:Film, clickListener: OnClickListener<Film>){
             val context = binding.root.context
 
             Glide.with(context)
@@ -22,6 +24,10 @@ class FilmItemAdapter: ListAdapter<Film, FilmItemAdapter.FilmsViewHolder>(filmsD
                 .into(binding.filmImage);
 
             binding.filmName.text = data.nameRu
+
+            binding.root.setOnClickListener {
+                clickListener.onClick(data)
+            }
         }
     }
 
@@ -32,7 +38,7 @@ class FilmItemAdapter: ListAdapter<Film, FilmItemAdapter.FilmsViewHolder>(filmsD
     }
 
     override fun onBindViewHolder(holder: FilmsViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(currentList[position], listener)
     }
 
 

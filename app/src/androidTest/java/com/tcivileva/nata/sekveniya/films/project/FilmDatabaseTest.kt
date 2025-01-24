@@ -41,9 +41,15 @@ class FilmDatabaseTest {
         val firstFilm = actualFilmsWithGenres?.firstOrNull()?.film
         val firstFilmGenres = actualFilmsWithGenres?.firstOrNull()?.genres
 
+
         Assert.assertEquals(expectedFilm, firstFilm)
         Assert.assertEquals(expectedGenres, firstFilmGenres)
+
+        val filmByGenre = database?.filmDao()?.getFilmsByGenre("детектив")
+        Assert.assertEquals(expectedFilm,filmByGenre?.firstOrNull()?.film)
+
     }
+
 
     companion object {
         val expectedFilm = FilmEntity(
@@ -62,5 +68,7 @@ class FilmDatabaseTest {
             GenreEntity("криминал"),
             GenreEntity("фэнтези")
         )
+
+
     }
 }

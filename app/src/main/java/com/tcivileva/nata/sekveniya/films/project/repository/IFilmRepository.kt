@@ -5,9 +5,11 @@ import com.tcivileva.nata.sekveniya.films.project.data.Genre
 
 interface IFilmRepository {
 
-    suspend fun getFilmsList():List<Film>
+    suspend fun getFilmsList(): List<Film>
 
-    suspend fun getGenresList():List<Genre>
+    suspend fun getFilmList(genre: String): List<Film>
+
+    suspend fun getGenresList(): List<Genre>
 
     suspend fun getFilmData(id:Int): Film
 

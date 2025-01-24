@@ -1,8 +1,10 @@
 package com.tcivileva.nata.sekveniya.films.project.data
 
 import com.tcivileva.nata.sekveniya.films.project.database.entity.FilmEntity
+import com.tcivileva.nata.sekveniya.films.project.database.entity.FilmWithGenres
 import com.tcivileva.nata.sekveniya.films.project.database.entity.GenreEntity
 import com.tcivileva.nata.sekveniya.films.project.network.FilmsResponse
+import java.util.Locale
 
 object DataConverter {
 
@@ -23,7 +25,13 @@ object DataConverter {
             )
 
             val genres = it.genres.map { genre->
-                GenreEntity(genre)
+                val value = genre
+                    .replaceFirstChar {
+                        if (it.isLowerCase())
+                            it.titlecase(Locale.ROOT)
+                        else it.toString()
+                    }
+                GenreEntity(value)
             }
 
             result[film] = genres
@@ -43,6 +51,21 @@ object DataConverter {
                 description = it.description,
                 genres = it.genres
             )
-        }
+        }.sortedBy { it.nameRu }
+    }
+
+    fun fromEntityToData(entities:List<FilmWithGenres>): List<Film>{
+       return entities.map {
+            Film(
+                id = it.film.filmId,
+                name = it.film.name,
+                nameRu = it.film.localizedName,
+                year = it.film.year,
+                rating = it.film.rating,
+                image = it.film.image,
+                description = it.film.description,
+                genres = it.genres.map{ it.genre }
+            )
+        }.sortedBy { it.nameRu }
     }
 }
