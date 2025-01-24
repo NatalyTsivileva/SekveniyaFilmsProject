@@ -68,21 +68,26 @@ class FilmListFragment : Fragment() {
         collectFlow(viewModel.filmsListFlow){ state->
             when(state){
                 is LoadingState.Loading -> {
-                    toggleProgressIndicator(true)
+                    _binding?.filmsProgressbar?.isVisible = true
+                    _binding?.filmsRecycler?.isVisible = false
                 }
 
                 is LoadingState.Success -> {
-                    toggleProgressIndicator(false)
                     filmAdapter?.submitList(state.data)
+
+                    _binding?.filmsProgressbar?.isVisible = false
+                    _binding?.filmsRecycler?.isVisible = true
                 }
 
                 is LoadingState.ConnectionError -> {
-                    toggleProgressIndicator(false)
+                    _binding?.filmsProgressbar?.isVisible = false
+                    _binding?.filmsRecycler?.isVisible = false
                     showErrorSnackbar()
                 }
 
                 is LoadingState.Error -> {
-                    toggleProgressIndicator(false)
+                    _binding?.filmsProgressbar?.isVisible = false
+                    _binding?.filmsRecycler?.isVisible = false
                     showErrorSnackbar()
                 }
             }
@@ -107,10 +112,6 @@ class FilmListFragment : Fragment() {
                 filmAdapter
             )
         }
-    }
-
-    private fun toggleProgressIndicator(isOn:Boolean){
-        _binding?.filmsProgressbar?.isVisible = isOn
     }
 
     private fun showErrorSnackbar(){

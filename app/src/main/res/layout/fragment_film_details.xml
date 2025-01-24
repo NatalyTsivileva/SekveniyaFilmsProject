@@ -14,6 +14,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/filmsToolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:title="The mountain between us"
+                app:navigationIcon="@drawable/ic_arrow_left"
+                app:titleCentered="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/filmImage"
                 style="@style/ShapableImageView"
@@ -23,7 +35,7 @@
                 android:layout_marginTop="@dimen/d3"
                 tools:src="@tools:sample/avatars"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/filmsToolbar"
                 app:layout_constraintEnd_toEndOf="parent">
             </com.google.android.material.imageview.ShapeableImageView>
 
@@ -43,12 +55,13 @@
             <TextView
                 android:id="@+id/genreAndYear"
                 style="@style/Roboto.Note.16"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/d1"
                 tools:text="драма, 2017 год"
                 app:layout_constraintTop_toBottomOf="@id/nameRu"
-                app:layout_constraintStart_toStartOf="@id/nameRu"/>
+                app:layout_constraintStart_toStartOf="@id/nameRu"
+                app:layout_constraintEnd_toEndOf="@id/nameRu"/>
 
             <TextView
                 android:id="@+id/rating"

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.tcivileva.nata.sekveniya.films.project.R
@@ -37,11 +38,18 @@ class FilmDetailsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        setupUI()
 
         viewModel.getFilmInfo(args.filmID)
 
         collectFlow(viewModel.filmsDetails){
             updateUI(it)
+        }
+    }
+
+    private fun setupUI(){
+        _binding?.filmsToolbar?.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
@@ -54,6 +62,7 @@ class FilmDetailsFragment : Fragment() {
 
             it.nameRu.text = film.nameRu
 
+            _binding?.filmsToolbar?.title = film.name
 
             //срединяем все жанры через запятую при этом делая первую букву каждого жанра маленькой
             var genreString = film.genres.joinToString(", ") { genre ->
