@@ -74,13 +74,16 @@ class FilmDetailsFragment : Fragment() {
             it.filmsToolbar.title = film.name
 
             //соединяем все жанры через запятую при этом делая первую букву каждого жанра маленькой
-            var genreString = film.genres.joinToString(", ") { genre ->
+            var genreString = film.genres.joinToString(separator = ", ") { genre ->
                 genre
                     .lowercase()
                     .replaceFirstChar { char -> char.lowercaseChar() }
             }
 
-            genreString+=", ${film.year} год"
+            genreString = if(genreString.isEmpty())
+                "${film.year} год"
+            else
+                "${genreString}, ${film.year} год"
 
             it.genreAndYear.text = genreString
 
