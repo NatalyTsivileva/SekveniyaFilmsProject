@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -22,6 +24,13 @@ class FilmDetailsFragment : Fragment() {
     private val args: FilmDetailsFragmentArgs by navArgs()
 
     private val viewModel: FilmDetailsViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback {
+            activity?.findNavController(R.id.nav_host_fragment)?.popBackStack()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +71,7 @@ class FilmDetailsFragment : Fragment() {
 
             it.nameRu.text = film.nameRu
 
-            _binding?.filmsToolbar?.title = film.name
+            it.filmsToolbar.title = film.name
 
             //срединяем все жанры через запятую при этом делая первую букву каждого жанра маленькой
             var genreString = film.genres.joinToString(", ") { genre ->
