@@ -155,3 +155,5 @@ data class GenreWithHeader(
 )
 ```
 Так же в проекте выделена типографика, различные стили.
+# Тестирование
+Добавлены Unit-тесты: для Room(androidTest) и для парсинга Response(test)
