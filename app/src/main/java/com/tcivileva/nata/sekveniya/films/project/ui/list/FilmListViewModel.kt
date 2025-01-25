@@ -36,6 +36,15 @@ class FilmListViewModel(
         }
     }
 
+    fun toggleGenre(genre: Genre){
+        if(selectedGenre==genre.genre){
+            selectedGenre = ""
+        } else {
+            selectedGenre = genre.genre
+        }
+        getFilms(selectedGenre)
+    }
+
     private fun getFilms(){
        viewModelScope.launch(Dispatchers.IO) {
            try {
@@ -68,14 +77,12 @@ class FilmListViewModel(
        }
     }
 
-    fun getFilms(genre:String){
+    private fun getFilms(genre:String){
         viewModelScope.launch(Dispatchers.IO){
             try {
-                val newGenreList:List<Genre> = _genresListFlow.value
-                    .flatMap { it.genres }
+                val newGenreList:List<Genre> = repository.getGenresList(selectedGenre)
                     .map {
-                           if(it.genre==genre && selectedGenre!=genre){
-                               selectedGenre = it.genre
+                           if(it.genre==genre){
                                it.copy(isSelected = true)
                            }else{
                                it.copy(isSelected = false)

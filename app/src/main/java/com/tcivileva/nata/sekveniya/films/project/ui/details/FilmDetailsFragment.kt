@@ -73,7 +73,7 @@ class FilmDetailsFragment : Fragment() {
 
             it.filmsToolbar.title = film.name
 
-            //срединяем все жанры через запятую при этом делая первую букву каждого жанра маленькой
+            //соединяем все жанры через запятую при этом делая первую букву каждого жанра маленькой
             var genreString = film.genres.joinToString(", ") { genre ->
                 genre
                     .lowercase()

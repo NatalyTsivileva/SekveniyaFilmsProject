@@ -42,7 +42,7 @@ class FilmListFragment : Fragment() {
 
   private val genreClickListener = object : OnClickListener<Genre> {
       override fun onClick(item: Genre) {
-         viewModel.getFilms(item.genre)
+         viewModel.toggleGenre(item)
       }
   }
 

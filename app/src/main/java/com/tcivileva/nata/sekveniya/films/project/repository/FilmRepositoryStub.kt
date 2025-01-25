@@ -70,6 +70,10 @@ class FilmRepositoryStub(
         )
     }
 
+    override suspend fun getGenresList(selectedGenre: String): List<Genre> {
+        return listOf()
+    }
+
     override suspend fun getFilmData(id: Int): Film {
         return Film(
             id=2,
@@ -82,4 +86,6 @@ class FilmRepositoryStub(
             genres = listOf("сюрреализм","артхаус","трагедия")
         )
     }
+
+
 }

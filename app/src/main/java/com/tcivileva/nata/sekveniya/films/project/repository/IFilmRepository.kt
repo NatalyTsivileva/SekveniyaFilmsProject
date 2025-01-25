@@ -11,6 +11,8 @@ interface IFilmRepository {
 
     suspend fun getGenresList(): List<Genre>
 
+    suspend fun getGenresList(selectedGenre:String): List<Genre>
+
     suspend fun getFilmData(id:Int): Film
 
 }

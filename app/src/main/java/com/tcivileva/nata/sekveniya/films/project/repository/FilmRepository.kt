@@ -36,6 +36,14 @@ class FilmRepository(
         }
     }
 
+    override suspend fun getGenresList(selectedGenre: String): List<Genre> {
+        return database.genreDao().getGenres().map {
+            val isSelected = selectedGenre == it.genre
+            Genre(it.genre, isSelected)
+        }
+    }
+
+
     override suspend fun getFilmData(id: Int): Film {
         val filmWithGenre = database.filmDao().getFilmWithGenres(id)
         return DataConverter
