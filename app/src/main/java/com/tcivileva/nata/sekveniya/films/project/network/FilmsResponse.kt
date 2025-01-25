@@ -18,7 +18,7 @@ data class FilmsResponse(
         @SerialName("localized_name")
         val localizedName: String = "",
         val name: String = "",
-        val rating: Double? = 0.0,
+        val rating: Double = 0.0,
         val year: Int = 0
     )
 }

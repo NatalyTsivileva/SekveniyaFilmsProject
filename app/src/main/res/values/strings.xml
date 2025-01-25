@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SekveniyaFilmsProject</string>
+    <string name="header_genres">Genres</string>
+    <string name="header_films">Films</string>
+    <string name="btn_reload">Reload</string>
+    <string name="connection_error">Network connection error</string>
+    <string name="brand_kinopoisk">KinoPoisk</string>
+    <string name="title_films">Films</string>
 </resources>

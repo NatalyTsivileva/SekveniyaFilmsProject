@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     kotlin("plugin.serialization") version "2.1.0"
     id("com.google.devtools.ksp")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -35,6 +36,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -47,6 +52,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
@@ -58,4 +64,29 @@ dependencies {
 
     //Kotlin serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+
+    // Koin для Android
+    implementation("io.insert-koin:koin-android:4.0.2")
+
+    //для viewLifecycleOwner
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+
+    //RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //Timber
+    implementation("com.jakewharton.timber:timber:5.0.1")
+
+    //Navigation
+    implementation ("androidx.navigation:navigation-fragment:2.8.5")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.8.5")
+    implementation ("androidx.navigation:navigation-ui:2.8.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.8.5")
 }
